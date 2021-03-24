@@ -7,3 +7,7 @@ I thought about pre-calculating the solar position for a set day, and then pilot
 The program I wrote is really not efficient in my opinion and could be improved a lot.
 
 * I'm piloting Lego Mindstorms NXT motors to make the solar panel move, and I'm using the nxt-python library (https://github.com/Eelviny/nxt-python). To plot the sun's position, I'm using the ephem library (https://pypi.org/project/ephem/). Part of this project works with Python 2.7, and the other with Python 3 (I'm trying to make it fully work with 2.7)
+
+* If you are curious about the plateform I built for the solar panel, here is it (quite simple but I might need to add sensors in order to set the initial position)
+ 
+![Img](https://i.imgur.com/vxE9XiP.jpg)
