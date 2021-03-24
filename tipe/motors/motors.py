@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+#THIS ONLY WORKS WITH PYTHON 2.7
+
 import time
 import datetime as dt
 import nxt
