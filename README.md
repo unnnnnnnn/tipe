@@ -1,6 +1,6 @@
 # TIPE - Following the sun
 
-* This small project was realised as my oral exam during my 2nd year of CPGE (Classes Préparatoires aux Grandes Écoles)
+* This small project was realised as my oral exam during my 2nd year of CPGE (Classes Préparatoires aux Grandes Écoles).
 The topic for this year was "Societal issues (environment, safety, energy)"
 I choose to work on the efficiency of solar panels, and how can they be improved.
 I thought about pre-calculating the solar position for a set day, and then piloting motors to make a solar panel follow the sun.
