@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-#THIS ONLY WORKS WITH PYTHON 2.7
-
 import time
 import datetime as dt
 import nxt
@@ -61,7 +59,7 @@ def get_init(L):
 
 today_instructions = get_init(today) # A definir avec fonction du dessus
 
-def move_elevation(angle):
+def move_elevation(angle, consigne):
     global angle_adapt
 
     compen_angle = 1
@@ -70,16 +68,25 @@ def move_elevation(angle):
     power = 20
     corr_angle = round(gear_ratio*angle)
     #print "elevation", corr_angle
+    print((m_right.get_tacho().__dict__["rotation_count"] + angle_adapt) / gear_ratio, consigne)
+    compen_angle = round((consigne - (m_right.get_tacho().__dict__["rotation_count"] + angle_adapt) / gear_ratio)*gear_ratio)
+
     if corr_angle < 0:
         corr_angle = -corr_angle
         power = -power
-    m_right.turn(power, corr_angle+compen_angle)
+        compen_angle = -compen_angle
+    
+    try:
+        m_right.turn(power, corr_angle+compen_angle)
+    except:
+        #L'angle peut être à 0 et ça crash
+        pass
 
     position = ((m_right.get_tacho().__dict__["rotation_count"] + angle_adapt) / gear_ratio)
-    print(corr_angle+compen_angle, m_right.get_tacho().__dict__["rotation_count"] + angle_adapt)
+    #print(corr_angle+compen_angle, m_right.get_tacho().__dict__["rotation_count"] + angle_adapt)
     angles_right.append(position)
 
-def move_azimuth(angle):
+def move_azimuth(angle, consigne):
     global angle_adapt
     power = 20
     corr_angle = round(gear_ratio*angle)
@@ -110,8 +117,8 @@ angle_adapt = 0
 m_left.reset_position(relative=False)
 m_right.reset_position(relative=False)
 
-move_azimuth(a0)
-move_elevation(e0)
+move_azimuth(a0, a0)
+move_elevation(e0, e0)
 
 #print(m_left.get_tacho().__dict__["rotation_count"])
 
@@ -128,8 +135,8 @@ for i in range(1,len(today_instructions)-1):
 
     print(today_instructions[i][0][1])
 
-    move_elevation(angle_elev)
-    move_azimuth(angle_azi)
+    move_elevation(angle_elev, today_instructions[i][0][1])
+    move_azimuth(angle_azi, today_instructions[i][1][1])
     
     Lt.append(i)
 
